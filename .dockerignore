@@ -1,0 +1,12 @@
+
+# Build dependencies
+dist
+build
+node_modules
+coverage
+
+# Environment (contains sensitive data)
+.env
+.vscode
+migrations
+db
