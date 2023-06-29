@@ -1,0 +1,17 @@
+service: morcilla-graphql
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: ${self:custom.constant.REGION}
+  stage: ${opt:stage}
+  httpApi:
+    cors: true
+
+custom:
+  constant:
+    REGION: eu-west-1

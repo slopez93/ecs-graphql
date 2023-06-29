@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": [
+      "es2022",
+      "esnext.asynciterable"
+    ],
+    "types": [
+      "reflect-metadata"
+    ],
+    "strict": true,
+    "skipLibCheck": true,
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+  },
+  "ts-node": {
+    "files": true,
+  },
+  "files": [
+    "index.d.ts",
+  ],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules/**/*"
+  ]
+}
