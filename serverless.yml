@@ -1,17 +1,15 @@
-service: morcilla-graphql
+service: graphql-ecs
 
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
+
+custom:
+  constant:
+    REGION: eu-west-1
 
 provider:
   name: aws
   runtime: nodejs16.x
   region: ${self:custom.constant.REGION}
   stage: ${opt:stage}
-  httpApi:
-    cors: true
-
-custom:
-  constant:
-    REGION: eu-west-1
