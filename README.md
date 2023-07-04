@@ -1,4 +1,2 @@
-# 🔷🌱 Simple GraphQL
-
-Foods list api
+# 🔷🌱 Simple GraphQL server deployed in AWS ECS service.
 
