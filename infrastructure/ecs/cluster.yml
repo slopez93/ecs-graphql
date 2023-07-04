@@ -1,0 +1,5 @@
+Resources:
+  ECSGraphQLCluster:
+    Type: 'AWS::ECS::Cluster'
+    Properties:
+      ClusterName: ECSGraphQLCluster

@@ -9,7 +9,7 @@ import express from "express";
 import { buildContext, GqlContext } from "./graphql/context";
 import { schema } from "./graphql/schema";
 
-const PORT = 3000;
+const PORT = 80;
 
 const server = new ApolloServer<GqlContext>({
   schema,
@@ -18,6 +18,11 @@ const server = new ApolloServer<GqlContext>({
 server.startInBackgroundHandlingStartupErrorsByLoggingAndFailingAllRequests();
 
 const app = express();
+
+app.use("/pin", (_req, res) =>
+  res.status(200).send({ message: "I'm healthy" })
+);
+
 app.use(
   "/graphql",
   cors(),
