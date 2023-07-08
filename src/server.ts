@@ -1,36 +1,15 @@
-import "reflect-metadata";
+import { ApolloGateway } from "@apollo/gateway";
+import { ApolloServer } from "apollo-server";
 
-import { ApolloServer } from "@apollo/server";
-import { expressMiddleware } from "@apollo/server/express4";
-import { json } from "body-parser";
-import cors from "cors";
-import express from "express";
-
-import { buildContext, GqlContext } from "./graphql/context";
-import { schema } from "./graphql/schema";
-
-const PORT = 80;
-
-const server = new ApolloServer<GqlContext>({
-  schema,
+const gateway = new ApolloGateway({
+  serviceList: [
+    { name: "users", url: "http://localhost:3000/graphql" },
+    { name: "foods", url: "http://localhost:3001/graphql" },
+  ],
 });
 
-server.startInBackgroundHandlingStartupErrorsByLoggingAndFailingAllRequests();
+const server = new ApolloServer({ gateway });
 
-const app = express();
-
-app.use("/pin", (_req, res) =>
-  res.status(200).send({ message: "I'm healthy" })
-);
-
-app.use(
-  "/graphql",
-  cors(),
-  json(),
-  expressMiddleware(server, {
-    context: buildContext,
-  })
-);
-
-app.listen(PORT);
-console.log(`🚀 Server ready at port ${PORT}`);
+server.listen().then(({ url }) => {
+  console.log(`Server running at ${url}`);
+});

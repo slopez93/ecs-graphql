@@ -1,5 +1,5 @@
 {
-  "name": "simple-graphql",
+  "name": "@simple-graphql/user",
   "version": "1.0.0",
   "description": "Simple backend using GraphQL",
   "scripts": {
@@ -7,11 +7,8 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "build": "tsc",
-    "build:dev": "ts-node-dev --files src/server.ts -e ts,graphql",
-    "start:graphs": "concurrently -k npm:server:*",
-    "start": "ts-node-dev src/server.ts",
-    "server:user": "ts-node-dev --files modules/user/src/server.ts -e ts,graphql",
-    "server:foods": "ts-node-dev modules/foods/src/server.ts"
+    "start": "node build/server.js",
+    "build:dev": "ts-node-dev --files src/server.ts -e ts,graphql"
   },
   "author": "",
   "license": "MIT",
@@ -26,7 +23,6 @@
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "concurrently": "^8.2.0",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -41,14 +37,13 @@
   },
   "dependencies": {
     "@apollo/federation": "^0.38.1",
-    "@apollo/gateway": "^2.4.8",
     "@apollo/server": "^4.1.1",
     "@automapper/classes": "^8.7.7",
     "@automapper/core": "^8.7.7",
     "@graphql-tools/schema": "^9.0.1",
     "apollo-server": "^3.12.0",
     "body-parser": "^1.20.1",
-    "class-validator": "^0.13.2",
+    "class-validator": "^0.14.0",
     "cors": "^2.8.5",
     "date-fns": "^2.29.3",
     "express": "^4.18.2",

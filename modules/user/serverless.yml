@@ -1,0 +1,19 @@
+service: graphql-ecs
+
+custom:
+  constant:
+    REGION: eu-west-1
+    ACCOUNT_ID: 600175187333
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: ${self:custom.constant.REGION}
+  stage: ${opt:stage}
+
+resources:
+  - ${file(infrastructure/ecs/task_definition.yml)}
+  - ${file(infrastructure/ecs/security_groups.yml)}
+  - ${file(infrastructure/ecs/cluster.yml)}
+  - ${file(infrastructure/ecs/service.yml)}
+  - ${file(infrastructure/ecs/alb.yml)}
