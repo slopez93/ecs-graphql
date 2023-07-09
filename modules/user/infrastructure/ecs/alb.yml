@@ -1,0 +1,20 @@
+Resources:
+  ECSGraphQLUserAlbTargetGroup:
+    Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'
+    Properties:
+      Name: ECSGraphQLUserAlbTargetGroup
+      VpcId: vpc-01e3873fd27ed5dc1
+      Protocol: HTTP
+      Port: 3000
+      HealthCheckPath: /pin
+      TargetType: ip
+
+  ECSGraphQLUserAlbListener:
+    Type: 'AWS::ElasticLoadBalancingV2::Listener'
+    Properties:
+      DefaultActions:
+        - TargetGroupArn: !Ref ECSGraphQLUserAlbTargetGroup
+          Type: forward
+      LoadBalancerArn: ${cf:graphql-ecs-infrastructure-${self:provider.stage}.ECSGraphQLInternalAlbArn}
+      Port: 3000
+      Protocol: HTTP

@@ -1,0 +1,20 @@
+Resources:
+  ECSGraphQLFoodsAlbTargetGroup:
+    Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'
+    Properties:
+      Name: ECSGraphQLFoodsAlbTargetGroup
+      VpcId: vpc-01e3873fd27ed5dc1
+      Protocol: HTTP
+      Port: 3001
+      HealthCheckPath: /pin
+      TargetType: ip
+
+  ECSGraphQLFoodsAlbListener:
+    Type: 'AWS::ElasticLoadBalancingV2::Listener'
+    Properties:
+      DefaultActions:
+        - TargetGroupArn: !Ref ECSGraphQLFoodsAlbTargetGroup
+          Type: forward
+      LoadBalancerArn: ${cf:graphql-ecs-infrastructure-${self:provider.stage}.ECSGraphQLInternalAlbArn}
+      Port: 3001
+      Protocol: HTTP

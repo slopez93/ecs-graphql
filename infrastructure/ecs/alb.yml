@@ -2,31 +2,35 @@ Resources:
   ECSGraphQLAlb:
     Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     Properties:
-      Name: ECSGraphQLClusterAlb
+      Name: ecs-graphql-alb
       Subnets:
         - subnet-00a46ff0375febce4
         - subnet-0f4ab16717b56a95a
-        - subnet-0cbc33d4e68d52d27
       Type: application
       SecurityGroups:
         - !GetAtt ECSGraphQLAlbSecurityGroup.GroupId
-  
-  ECSGraphQLAlbTargetGroup:
-    Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'
-    Properties:
-      Name: ECSGraphQLAlbTargetGroup
-      VpcId: vpc-01e3873fd27ed5dc1
-      Protocol: HTTP
-      Port: 80
-      HealthCheckPath: /pin
-      TargetType: ip
 
-  ECSGraphQLAlbListener:
-    Type: 'AWS::ElasticLoadBalancingV2::Listener'
+  ECSGraphQLInternalAlb:
+    Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     Properties:
-      DefaultActions:
-        - TargetGroupArn: !Ref ECSGraphQLAlbTargetGroup
-          Type: forward
-      LoadBalancerArn: !Ref ECSGraphQLAlb
-      Port: 80
-      Protocol: HTTP
+      Name: ecs-graphql-internal-alb
+      Subnets:
+        - subnet-00a46ff0375febce4
+        - subnet-0f4ab16717b56a95a
+      Type: application
+      Scheme: internal
+      SecurityGroups:
+        - !GetAtt ECSGraphQLInternalAlbSecurityGroup.GroupId
+
+Outputs:
+  ECSGraphQLAlbArn:
+    Value:
+      Ref: ECSGraphQLAlb
+    Export:
+      Name: ECSGraphQLAlbArn
+
+  ECSGraphQLInternalAlbArn:
+    Value:
+      Ref: ECSGraphQLInternalAlb
+    Export:
+      Name: ECSGraphQLInternalAlbArn

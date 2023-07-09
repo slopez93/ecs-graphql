@@ -2,7 +2,7 @@ Resources:
   ECSGraphQLCluster:
     Type: 'AWS::ECS::Cluster'
     Properties:
-      ClusterName: ECSGraphQLCluster
+      ClusterName: ecs-graphql
 
 Outputs:
   ECSGraphQLClusterArn:

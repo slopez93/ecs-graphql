@@ -1,4 +1,4 @@
-service: graphql-ecs
+service: graphql-ecs-infrastructure
 
 custom:
   constant:

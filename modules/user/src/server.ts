@@ -2,13 +2,12 @@ import "reflect-metadata";
 
 import { buildFederatedSchema } from "@apollo/federation";
 import { ApolloServer } from "@apollo/server";
-// import { ApolloServer } from "apollo-server";
 import { expressMiddleware } from "@apollo/server/express4";
 import express, { json } from "express";
+import cors from "cors";
 
 import { resolvers, typeDefs } from "./graphql";
 import { buildContext, GqlContext } from "./graphql/context";
-import cors from "cors";
 
 const PORT = 3000;
 

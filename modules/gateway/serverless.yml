@@ -1,4 +1,4 @@
-service: graphql-ecs
+service: graphql-ecs-gateway
 
 custom:
   constant:
@@ -13,4 +13,5 @@ provider:
 
 resources:
   - ${file(infrastructure/ecs/task_definition.yml)}
+  - ${file(infrastructure/ecs/alb.yml)}
   - ${file(infrastructure/ecs/service.yml)}

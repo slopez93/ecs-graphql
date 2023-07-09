@@ -1,15 +1,15 @@
 Resources:
-  ECSGraphQLService:
+  ECSGraphQLGatewayService:
     Type: AWS::ECS::Service
     DependsOn:
-      - ECSGraphQLAlbListener
+      - ECSGraphQLGatewayAlbListener
     Properties:
+      ServiceName: ecs-graphql-gateway-service
       LaunchType: FARGATE
-      Cluster:
-        Ref: "ECSGraphQLCluster"
+      Cluster: ${cf:graphql-ecs-infrastructure-${self:provider.stage}.ECSGraphQLClusterArn}
       DesiredCount: 1
       TaskDefinition:
-        Ref: "ECSGraphQLTaskDefinition"
+        Ref: "ECSGraphQLGatewayTaskDefinition"
       DeploymentConfiguration:
         MaximumPercent: 100
         MinimumHealthyPercent: 0
@@ -17,10 +17,11 @@ Resources:
         AwsvpcConfiguration:
           AssignPublicIp: ENABLED
           SecurityGroups:
-            - !GetAtt ECSGraphQLAlbSecurityGroupContainers.GroupId
-          Subnets: ['subnet-00a46ff0375febce4','subnet-0f4ab16717b56a95a','subnet-0cbc33d4e68d52d27']
+            - ${cf:graphql-ecs-infrastructure-${self:provider.stage}.ECSGraphQLAlbSecurityGroupContainersGroupId}
+            - ${cf:graphql-ecs-infrastructure-${self:provider.stage}.ECSGraphQLInternalAlbSecurityGroupContainersGroupId}
+          Subnets: ['subnet-00a46ff0375febce4','subnet-0f4ab16717b56a95a']
       LoadBalancers:
         - TargetGroupArn:
-            Ref: ECSGraphQLAlbTargetGroup
+            Ref: ECSGraphQLGatewayAlbTargetGroup
           ContainerPort: 80
-          ContainerName: ecs-graphql-task
+          ContainerName: ecs-graphql-task-gateway

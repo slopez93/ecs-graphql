@@ -20,15 +20,47 @@ Resources:
     Type: 'AWS::EC2::SecurityGroup'
     Properties:
       GroupDescription: SG for traffic between ALB and containers
-      GroupName: Alb2FargateContainers
+      GroupName: ECSGraphQLAlbSecurityGroupContainers
       SecurityGroupIngress:
         - IpProtocol: -1
           SourceSecurityGroupId: !GetAtt ECSGraphQLAlbSecurityGroup.GroupId
           Description: 'Inbound rule for all traffic'
 
+  ECSGraphQLInternalAlbSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: SG for the ECS GraphQL ALB
+      GroupName: ECSGraphQLInternalAlbSecurityGroup
+      SecurityGroupIngress:
+        - CidrIp: 172.31.0.0/16
+          FromPort: 80
+          ToPort: 80
+          IpProtocol: TCP
+          Description: 'Inbound rule for IPv4 traffic'
+        - CidrIp: 172.31.0.0/16
+          FromPort: 3000
+          ToPort: 3000
+          IpProtocol: TCP
+          Description: 'Inbound rule for IPv4 traffic'
+        - CidrIp: 172.31.0.0/16
+          FromPort: 3001
+          ToPort: 3001
+          IpProtocol: TCP
+          Description: 'Inbound rule for IPv4 traffic'
+
+  ECSGraphQLInternalAlbSecurityGroupContainers:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: SG for traffic between ALB and containers
+      GroupName: ECSGraphQLInternalAlbSecurityGroupContainers
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          SourceSecurityGroupId: !GetAtt ECSGraphQLInternalAlbSecurityGroup.GroupId
+          Description: 'Inbound rule for all traffic'
+
 
 Outputs:
-  ECSGraphQLAlbSecurityGroup:
+  ECSGraphQLAlbSecurityGroupId:
     Value:
       !GetAtt ECSGraphQLAlbSecurityGroup.GroupId
     Export:
@@ -39,3 +71,15 @@ Outputs:
       !GetAtt ECSGraphQLAlbSecurityGroupContainers.GroupId
     Export:
       Name: ECSGraphQLAlbSecurityGroupContainersGroupId
+
+  ECSGraphQLInternalAlbSecurityGroupId:
+    Value:
+      !GetAtt ECSGraphQLInternalAlbSecurityGroup.GroupId
+    Export:
+      Name: ECSGraphQLInternalAlbSecurityGroupId
+
+  ECSGraphQLInternalAlbSecurityGroupContainersGroupId:
+    Value:
+      !GetAtt ECSGraphQLInternalAlbSecurityGroupContainers.GroupId
+    Export:
+      Name: ECSGraphQLInternalAlbSecurityGroupContainersGroupId
