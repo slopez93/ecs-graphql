@@ -13,7 +13,4 @@ provider:
 
 resources:
   - ${file(infrastructure/ecs/task_definition.yml)}
-  - ${file(infrastructure/ecs/security_groups.yml)}
-  - ${file(infrastructure/ecs/cluster.yml)}
   - ${file(infrastructure/ecs/service.yml)}
-  - ${file(infrastructure/ecs/alb.yml)}
