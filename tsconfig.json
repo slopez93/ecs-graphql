@@ -7,9 +7,7 @@
       "es2022",
       "esnext.asynciterable"
     ],
-    "types": [
-      "reflect-metadata"
-    ],
+    "types": [],
     "strict": true,
     "skipLibCheck": true,
     "outDir": "./build",
@@ -21,12 +19,6 @@
   "ts-node": {
     "files": true,
   },
-  "files": [
-    "index.d.ts",
-  ],
-  "include": [
-    "src/**/*.ts"
-  ],
   "exclude": [
     "node_modules/**/*"
   ]

@@ -1,5 +1,5 @@
 {
-  "name": "simple-graphql",
+  "name": "@simple-graphql/gateway",
   "version": "1.0.0",
   "description": "Simple backend using GraphQL",
   "scripts": {
@@ -7,18 +7,22 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "build": "tsc",
-    "build:dev": "ts-node-dev --files src/server.ts -e ts,graphql",
-    "start": "ts-node-dev modules/gateway/src/server.ts",
-    "start:graphs": "concurrently -k npm:server:*",
-    "server:user": "ts-node-dev modules/user/src/server.ts",
-    "server:foods": "ts-node-dev modules/foods/src/server.ts"
+    "start": "node build/server.js",
+    "build:dev": "ts-node-dev --files src/server.ts -e ts,graphql"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@swc/core": "^1.2.172",
+    "@swc/jest": "^0.2.20",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/graphql": "^14.2.3",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^18.11.9",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
-    "concurrently": "^8.2.0",
     "eslint": "^8.14.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
@@ -30,5 +34,11 @@
     "serverless-plugin-typescript": "^2.1.4",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@apollo/federation": "^0.38.1",
+    "@apollo/gateway": "^2.4.9",
+    "apollo-server": "^3.12.0",
+    "graphql": "^16.6.0"
   }
 }

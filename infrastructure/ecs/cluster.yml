@@ -3,3 +3,10 @@ Resources:
     Type: 'AWS::ECS::Cluster'
     Properties:
       ClusterName: ECSGraphQLCluster
+
+Outputs:
+  ECSGraphQLClusterArn:
+    Value:
+      Ref: ECSGraphQLCluster
+    Export:
+      Name: ECSGraphQLClusterArn

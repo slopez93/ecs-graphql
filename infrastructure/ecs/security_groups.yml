@@ -25,3 +25,17 @@ Resources:
         - IpProtocol: -1
           SourceSecurityGroupId: !GetAtt ECSGraphQLAlbSecurityGroup.GroupId
           Description: 'Inbound rule for all traffic'
+
+
+Outputs:
+  ECSGraphQLAlbSecurityGroup:
+    Value:
+      !GetAtt ECSGraphQLAlbSecurityGroup.GroupId
+    Export:
+      Name: ECSGraphQLAlbSecurityGroup
+
+  ECSGraphQLAlbSecurityGroupContainersGroupId:
+    Value:
+      !GetAtt ECSGraphQLAlbSecurityGroupContainers.GroupId
+    Export:
+      Name: ECSGraphQLAlbSecurityGroupContainersGroupId

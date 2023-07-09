@@ -1,2 +1,1 @@
-# 🔷🌱 Simple GraphQL server deployed in AWS ECS service.
-
+# 🔷🌱 Simple GraphQL module federated Foods.
